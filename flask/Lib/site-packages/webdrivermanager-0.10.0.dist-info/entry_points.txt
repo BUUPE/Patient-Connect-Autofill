@@ -1,0 +1,3 @@
+[console_scripts]
+webdrivermanager = webdrivermanager.__main__:main
+
