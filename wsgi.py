@@ -147,7 +147,7 @@ def log_into_patient_connect(f_username, f_password):
 # to complete the survey
 def complete_survey():
     global driver
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome()
 
     if driver.current_url != 'https://patientconnect.bu.edu/home.aspx':
         driver.get('https://patientconnect.bu.edu/home.aspx')
