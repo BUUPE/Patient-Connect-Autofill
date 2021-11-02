@@ -4,6 +4,8 @@ from flask import *
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
+import os
+from selenium.webdriver.chrome.options import Options
 
 app = Flask(__name__, template_folder='templates')
 
@@ -129,7 +131,15 @@ def time9():
     driver_kill()
     return render_template('index.html', status_message="Appointment booked")
 
+# to set up the Chrome webdriver
+def load_chrome_driver():
+    options = Options()
 
+    options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
+
+    # options.add_argument('--headless')
+
+    return webdriver.Chrome(executable_path=str(os.environ.get('CHROMEDRIVER_PATH')), chrome_options=options)
 # to log into Patient Connect
 def log_into_patient_connect(f_username, f_password):
     user_field = driver.find_element_by_id('j_username')
@@ -147,7 +157,7 @@ def log_into_patient_connect(f_username, f_password):
 # to complete the survey
 def complete_survey():
     global driver
-    driver = webdriver.Chrome()
+    driver = load_chrome_driver()
 
     if driver.current_url != 'https://patientconnect.bu.edu/home.aspx':
         driver.get('https://patientconnect.bu.edu/home.aspx')
