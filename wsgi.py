@@ -2,10 +2,7 @@
 
 from flask import *
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
-import os
-from selenium.webdriver.chrome.options import Options
 
 app = Flask(__name__, template_folder='templates')
 
@@ -131,15 +128,25 @@ def time9():
     driver_kill()
     return render_template('index.html', status_message="Appointment booked")
 
+
 # to set up the Chrome webdriver
 def load_chrome_driver():
-    options = Options()
+    GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+    CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
-    options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
+    chrome_options = webdriver.ChromeOptions()
 
-    # options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
 
-    return webdriver.Chrome(executable_path=str(os.environ.get('CHROMEDRIVER_PATH')), chrome_options=options)
+    chrome_options.binary_location = GOOGLE_CHROME_PATH
+
+    browser = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+
+    return browser
+
+
 # to log into Patient Connect
 def log_into_patient_connect(f_username, f_password):
     user_field = driver.find_element_by_id('j_username')
