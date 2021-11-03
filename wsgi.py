@@ -9,6 +9,10 @@ from selenium.webdriver.common.by import By
 app = Flask(__name__, template_folder='templates')
 
 
+driver = 0
+times = []
+bu_username, bu_password = "sample", "sample"
+
 @app.route("/")
 def index():
     return render_template('index.html')
@@ -289,9 +293,4 @@ def driver_kill():
 
 
 if __name__ == "__main__":
-    global bu_username, bu_password
-    driver = 0
-    times = []
-    bu_username, bu_password = "sample", "sample"
-
     app.run()
