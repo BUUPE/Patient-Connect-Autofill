@@ -3,6 +3,7 @@
 from flask import *
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from webdriver_manager.chrome import ChromeDriverManager
 
 app = Flask(__name__, template_folder='templates')
 
@@ -142,7 +143,7 @@ def load_chrome_driver():
 
     chrome_options.binary_location = GOOGLE_CHROME_PATH
 
-    browser = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+    browser = webdriver.Chrome(ChromeDriverManager().install())
 
     return browser
 
@@ -300,4 +301,4 @@ if __name__ == "__main__":
     times = []
     bu_username, bu_password = "sample", "sample"
 
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run()
