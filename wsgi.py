@@ -286,6 +286,7 @@ def driver_kill():
 
 
 if __name__ == "__main__":
+    global bu_username, bu_password
     driver = 0
     times = []
     bu_username, bu_password = "sample", "sample"
