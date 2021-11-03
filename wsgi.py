@@ -4,6 +4,7 @@ from flask import *
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 
 app = Flask(__name__, template_folder='templates')
 
@@ -139,13 +140,13 @@ def load_chrome_driver():
 
 # to log into Patient Connect
 def log_into_patient_connect(f_username, f_password):
-    user_field = driver.find_element_by_id('j_username')
+    user_field = driver.find_element(By.ID, 'j_username')
     user_field.send_keys(f_username)
 
-    user_field = driver.find_element_by_id('j_password')
+    user_field = driver.find_element(By.ID, 'j_password')
     user_field.send_keys(f_password)
 
-    login_continue = driver.find_element_by_xpath('//*[@id="wrapper"]/div/form/button')
+    login_continue = driver.find_element(By.XPATH, '//*[@id="wrapper"]/div/form/button')
     login_continue.click()
 
     return 0
@@ -163,19 +164,19 @@ def complete_survey():
         log_into_patient_connect(bu_username, bu_password)
 
     try:
-        complete_survey_b = driver.find_element_by_xpath('//*[@id="ctl03"]/div[3]/div/a')
+        complete_survey_b = driver.find_element(By.XPATH, '//*[@id="ctl03"]/div[3]/div/a')
         complete_survey_b.click()
     except Exception:
-        complete_survey_b = driver.find_element_by_xpath('//*[@id="ctl03"]/div[4]/div/a')
+        complete_survey_b = driver.find_element(By.XPATH, '//*[@id="ctl03"]/div[4]/div/a')
         complete_survey_b.click()
 
-    continue_1 = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[2]/div[1]/div/div[2]/a')
+    continue_1 = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[1]/div/div[2]/a')
     continue_1.click()
 
-    question_1 = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/main/form/div[2]/fieldset/div/div[1]/div')
+    question_1 = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/main/form/div[2]/fieldset/div/div[1]/div')
     question_1.click()
 
-    continue_2 = driver.find_element_by_xpath('//*[@id="mainbody"]/footer/div/div[2]/input')
+    continue_2 = driver.find_element(By.XPATH, '//*[@id="mainbody"]/footer/div/div[2]/input')
     continue_2.click()
 
     return driver
@@ -193,53 +194,53 @@ def appointment_checklist():
     if driver.current_url != 'https://patientconnect.bu.edu/home.aspx':
         log_into_patient_connect(bu_username, bu_password)
 
-    appointments = driver.find_element_by_xpath('//*[@id="sidebar"]/ul/li[4]/a')
+    appointments = driver.find_element(By.XPATH, '//*[@id="sidebar"]/ul/li[4]/a')
     appointments.click()
 
-    schedule_appointment = driver.find_element_by_xpath('/html/body/div[4]/div/div[2]/form/p[1]/input')
+    schedule_appointment = driver.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/form/p[1]/input')
     schedule_appointment.click()
 
-    not_911 = driver.find_element_by_xpath(
+    not_911 = driver.find_element(By.XPATH, 
         '/html/body/div[4]/div/div[2]/form/span/fieldset/table/tbody/tr[1]/td/span/label')
     not_911.click()
 
-    continue_3 = driver.find_element_by_xpath('//*[@id="cmdProceed"]')
+    continue_3 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_3.click()
 
-    reason = driver.find_element_by_xpath('//*[@id="ctl03"]/fieldset/table/tbody/tr[13]/td/span')
+    reason = driver.find_element(By.XPATH, '//*[@id="ctl03"]/fieldset/table/tbody/tr[13]/td/span')
     reason.click()
 
-    continue_4 = driver.find_element_by_xpath('//*[@id="cmdProceed"]')
+    continue_4 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_4.click()
 
-    agree1 = driver.find_element_by_xpath('/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[1]/td/span/input')
+    agree1 = driver.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[1]/td/span/input')
     agree1.click()
 
-    continue_5 = driver.find_element_by_xpath('//*[@id="cmdProceed"]')
+    continue_5 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_5.click()
 
-    agree2 = driver.find_element_by_xpath(
+    agree2 = driver.find_element(By.XPATH, 
         '/html/body/div[4]/div/div[2]/form/span/li[4]/fieldset/table/tbody/tr[1]/td/span/label')
     agree2.click()
 
-    continue_6 = driver.find_element_by_xpath('//*[@id="cmdProceed"]')
+    continue_6 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_6.click()
 
-    no_symptoms = driver.find_element_by_xpath(
+    no_symptoms = driver.find_element(By.XPATH, 
         '/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[3]/td/span/label')
     no_symptoms.click()
 
-    continue_7 = driver.find_element_by_xpath('//*[@id="cmdProceed"]')
+    continue_7 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_7.click()
 
-    not_positive = driver.find_element_by_xpath(
+    not_positive = driver.find_element(By.XPATH, 
         '/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[3]/td/span/label')
     not_positive.click()
 
-    continue_8 = driver.find_element_by_xpath('//*[@id="cmdProceed"]')
+    continue_8 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_8.click()
 
-    continue_9 = driver.find_element_by_xpath('//*[@id="cmdStandardProceed"]')
+    continue_9 = driver.find_element(By.XPATH, '//*[@id="cmdStandardProceed"]')
     continue_9.click()
 
     return 0
@@ -247,16 +248,16 @@ def appointment_checklist():
 
 # to select the location of the appointment
 def appointment_location(location_choice):
-    testing_location = Select(driver.find_element_by_xpath('//*[@id="LocationList"]'))
+    testing_location = Select(driver.find_element(By.XPATH, '//*[@id="LocationList"]'))
     testing_location.select_by_index(location_choice + 1)
 
-    search_appointments = driver.find_element_by_xpath('//*[@id="apptSearch"]')
+    search_appointments = driver.find_element(By.XPATH, '//*[@id="apptSearch"]')
     search_appointments.click()
 
     for counter in range(1, 11):
         appointment_results_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[' + str(counter) + \
                                     ']/td[2]/label'
-        times.append(driver.find_element_by_xpath(appointment_results_xpath).text)
+        times.append(driver.find_element(By.XPATH, appointment_results_xpath).text)
 
     return 0
 
@@ -265,13 +266,13 @@ def appointment_location(location_choice):
 def appointment_time(time_choice):
     appointment_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[' + str(time_choice + 1) + \
                         ']/td[1]/span/input '
-    select_appointment = driver.find_element_by_xpath(appointment_xpath)
+    select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
 
-    continue_10 = driver.find_element_by_xpath('//*[@id="cmdStandardProceedUpper"]')
+    continue_10 = driver.find_element(By.XPATH, '//*[@id="cmdStandardProceedUpper"]')
     continue_10.click()
 
-    confirm_appointment = driver.find_element_by_xpath('//*[@id="cmdConfirm"]')
+    confirm_appointment = driver.find_element(By.XPATH, '//*[@id="cmdConfirm"]')
     confirm_appointment.click()
 
     return 0
