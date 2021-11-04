@@ -281,4 +281,5 @@ def appointment_time(time_choice):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.debug = True
+    app.run(debug=True, use_reloader=True)
