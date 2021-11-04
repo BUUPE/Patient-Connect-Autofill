@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+
 
 app = Flask(__name__, template_folder='templates')
 
@@ -141,7 +143,19 @@ def time9():
 # to set up the Chrome webdriver
 def load_chrome_driver():
     global driver
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    chrome_options = Options()
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--proxy-server='direct://'")
+    chrome_options.add_argument("--proxy-bypass-list=*")
+    chrome_options.add_argument("--start-maximized")
+    # chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--ignore-certificate-errors')
+    chrome_options.add_argument("--disable-extensions")
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
     return 0
 
 
@@ -197,8 +211,7 @@ def appointment_checklist():
     if driver.current_url != 'https://patientconnect.bu.edu/home.aspx':
         log_into_patient_connect(bu_username, bu_password)
 
-    appointments = driver.find_element(By.XPATH, '//*[@id="sidebar"]/ul/li[4]/a')
-    appointments.click()
+    driver.get('https://patientconnect.bu.edu/appointments_home.aspx')
 
     schedule_appointment = driver.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/form/p[1]/input')
     schedule_appointment.click()
@@ -282,5 +295,4 @@ def appointment_time(time_choice):
 
 
 if __name__ == "__main__":
-    app.debug = True
     app.run(debug=True, use_reloader=True)
