@@ -8,10 +8,10 @@ from selenium.webdriver.common.by import By
 
 app = Flask(__name__, template_folder='templates')
 
-
 driver = 0
 times = []
 bu_username, bu_password = "sample", "sample"
+
 
 @app.route("/")
 def index():
@@ -32,19 +32,22 @@ def home():
 
 @app.route("/survey/")
 def survey():
+    load_chrome_driver()
     complete_survey()
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Survey done")
 
 
 @app.route("/appointment/")
 def appointment():
+    load_chrome_driver()
     appointment_checklist()
     return render_template('appt_location.html', status_message="Appointment pending")
 
 
 @app.route("/both/")
 def both():
+    load_chrome_driver()
     complete_survey()
     appointment_checklist()
     return render_template('appt_location.html', status_message="Survey done, appointment pending")
@@ -68,78 +71,78 @@ def loc1():
 @app.route("/time0/")
 def time0():
     appointment_time(0)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time1/")
 def time1():
     appointment_time(1)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time2/")
 def time2():
     appointment_time(2)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time3/")
 def time3():
     appointment_time(3)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time4/")
 def time4():
     appointment_time(4)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time5/")
 def time5():
     appointment_time(5)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time6/")
 def time6():
     appointment_time(6)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time7/")
 def time7():
     appointment_time(7)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time8/")
 def time8():
     appointment_time(8)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 @app.route("/time9/")
 def time9():
     appointment_time(9)
-    driver_kill()
+    driver.close()
     return render_template('index.html', status_message="Appointment booked")
 
 
 # to set up the Chrome webdriver
 def load_chrome_driver():
-    browser = webdriver.Chrome(ChromeDriverManager().install())
-
-    return browser
+    global driver
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    return 0
 
 
 # to log into Patient Connect
@@ -158,9 +161,6 @@ def log_into_patient_connect(f_username, f_password):
 
 # to complete the survey
 def complete_survey():
-    global driver
-    driver = load_chrome_driver()
-
     if driver.current_url != 'https://patientconnect.bu.edu/home.aspx':
         driver.get('https://patientconnect.bu.edu/home.aspx')
 
@@ -185,15 +185,11 @@ def complete_survey():
     continue_2 = driver.find_element(By.XPATH, '//*[@id="mainbody"]/footer/div/div[2]/input')
     continue_2.click()
 
-    return driver
+    return 0
 
 
 # to start booking an appointment
 def appointment_checklist():
-    global driver
-    if driver == 0:
-        driver = webdriver.Chrome()
-
     if driver.current_url != 'https://patientconnect.bu.edu/home.aspx':
         driver.get('https://patientconnect.bu.edu/home.aspx')
 
@@ -206,8 +202,8 @@ def appointment_checklist():
     schedule_appointment = driver.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/form/p[1]/input')
     schedule_appointment.click()
 
-    not_911 = driver.find_element(By.XPATH, 
-        '/html/body/div[4]/div/div[2]/form/span/fieldset/table/tbody/tr[1]/td/span/label')
+    not_911 = driver.find_element(By.XPATH,
+                                  '/html/body/div[4]/div/div[2]/form/span/fieldset/table/tbody/tr[1]/td/span/label')
     not_911.click()
 
     continue_3 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
@@ -225,22 +221,22 @@ def appointment_checklist():
     continue_5 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_5.click()
 
-    agree2 = driver.find_element(By.XPATH, 
-        '/html/body/div[4]/div/div[2]/form/span/li[4]/fieldset/table/tbody/tr[1]/td/span/label')
+    agree2 = driver.find_element(By.XPATH,
+                                 '/html/body/div[4]/div/div[2]/form/span/li[4]/fieldset/table/tbody/tr[1]/td/span/label')
     agree2.click()
 
     continue_6 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_6.click()
 
-    no_symptoms = driver.find_element(By.XPATH, 
-        '/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[3]/td/span/label')
+    no_symptoms = driver.find_element(By.XPATH,
+                                      '/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[3]/td/span/label')
     no_symptoms.click()
 
     continue_7 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
     continue_7.click()
 
-    not_positive = driver.find_element(By.XPATH, 
-        '/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[3]/td/span/label')
+    not_positive = driver.find_element(By.XPATH,
+                                       '/html/body/div[4]/div/div[2]/form/fieldset/table/tbody/tr[3]/td/span/label')
     not_positive.click()
 
     continue_8 = driver.find_element(By.XPATH, '//*[@id="cmdProceed"]')
@@ -281,14 +277,6 @@ def appointment_time(time_choice):
     confirm_appointment = driver.find_element(By.XPATH, '//*[@id="cmdConfirm"]')
     confirm_appointment.click()
 
-    return 0
-
-
-# close driver
-def driver_kill():
-    global driver
-    driver.quit()
-    driver = 0
     return 0
 
 
