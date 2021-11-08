@@ -156,6 +156,7 @@ def load_chrome_driver():
     chrome_options.add_argument('--ignore-certificate-errors')
     chrome_options.add_argument("--disable-extensions")
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    print(driver == 0)
     return 0
 
 
