@@ -106,15 +106,4 @@
     <MESSAGE value="Update index.html" />
     <option name="LAST_COMMIT_MESSAGE" value="Update index.html" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wsgi.py</url>
-          <line>267</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
 </project>

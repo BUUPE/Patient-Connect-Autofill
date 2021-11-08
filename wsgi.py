@@ -145,18 +145,21 @@ def load_chrome_driver():
     global driver
     chrome_options = Options()
     chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.addArguments("--allow-insecure-localhost");
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--proxy-server='direct://'")
     chrome_options.add_argument("--proxy-bypass-list=*")
     chrome_options.add_argument("--start-maximized")
-    # chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--ignore-certificate-errors')
+    chrome_options.add_argument('--allow-running-insecure-content')
     chrome_options.add_argument("--disable-extensions")
+    user_agent = 'Chrome/60.0.3112.50'
+    chrome_options.add_argument(f'user-agent={user_agent}')
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-    print(driver == 0)
     return 0
 
 
@@ -270,10 +273,11 @@ def appointment_location(location_choice):
 
     search_appointments = driver.find_element(By.XPATH, '//*[@id="apptSearch"]')
     search_appointments.click()
+    driver.get_screenshot_as_file("screenshot.png")
 
     for counter in range(1, 11):
-        appointment_results_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[' + str(counter) + \
-                                    ']/td[2]/label'
+        appointment_results_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody' \
+                                    '/tr[' + str(counter) + ']/td[2]/label'
         times.append(driver.find_element(By.XPATH, appointment_results_xpath).text)
 
     return 0
