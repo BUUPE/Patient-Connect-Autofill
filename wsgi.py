@@ -145,7 +145,7 @@ def load_chrome_driver():
     global driver
     chrome_options = Options()
     chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.addArguments("--allow-insecure-localhost");
+    chrome_options.add_argument("--allow-insecure-localhost")
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--proxy-server='direct://'")
     chrome_options.add_argument("--proxy-bypass-list=*")
@@ -276,8 +276,7 @@ def appointment_location(location_choice):
     driver.get_screenshot_as_file("screenshot.png")
 
     for counter in range(1, 11):
-        appointment_results_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody' \
-                                    '/tr[' + str(counter) + ']/td[2]/label'
+        appointment_results_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr['+ str(counter) + ']/td[2]/label'
         times.append(driver.find_element(By.XPATH, appointment_results_xpath).text)
 
     return 0
@@ -285,12 +284,11 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    appointment_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[' + str(time_choice + 1) + \
-                        ']/td[1]/span/input '
+    appointment_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(time_choice + 1) + ']/td[2]/label'
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
 
-    continue_10 = driver.find_element(By.XPATH, '//*[@id="cmdStandardProceedUpper"]')
+    continue_10 = driver.find_element(By.ID, "cmdStandardProceedUpper")
     continue_10.click()
 
     confirm_appointment = driver.find_element(By.XPATH, '//*[@id="cmdConfirm"]')
