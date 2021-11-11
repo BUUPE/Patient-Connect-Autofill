@@ -6,6 +6,9 @@ from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 
 app = Flask(__name__, template_folder='templates')
@@ -275,8 +278,8 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    appointment_xpath = "/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[" + str(time_choice + 1) + "  ]/td[1]/span/input"
-    driver.get_screenshot_as_file("screenshot.png")
+    appointment_xpath = "/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[" + str(time_choice + 1) + "]/td[1]/span/input"
+    WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, appointment_xpath)))
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
 
