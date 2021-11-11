@@ -6,10 +6,6 @@ from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
 
 app = Flask(__name__, template_folder='templates')
 
@@ -270,7 +266,7 @@ def appointment_location(location_choice):
     search_appointments.click()
 
     for counter in range(1, 11):
-        appointment_results_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr['+ str(counter) + ']/td[2]/label'
+        appointment_results_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(counter) + ']/td[2]/label'
         times.append(driver.find_element(By.XPATH, appointment_results_xpath).text)
 
     return 0
@@ -278,8 +274,9 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    appointment_xpath = "/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[" + str(time_choice + 1) + "]/td[1]/span/input"
-    WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, appointment_xpath)))
+    appointment_xpath = "/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[" + str(
+        time_choice + 1) + "]/td[2]/label"
+    # '//*[@id="apptContainer"]/fieldset/table/tbody/tr[3]/td[2]/label'
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
 
