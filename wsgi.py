@@ -36,7 +36,7 @@ def survey():
     load_chrome_driver()
     complete_survey()
     driver.close()
-    return render_template('index.html', status_message="Survey done")
+    return render_template('index.html', status_message="Survey complete")
 
 
 @app.route("/appointment/")
@@ -51,20 +51,20 @@ def both():
     load_chrome_driver()
     complete_survey()
     appointment_checklist()
-    return render_template('appt_location.html', status_message="Survey done, appointment pending")
+    return render_template('appt_location.html', status_message="Survey complete")
 
 
 @app.route("/loc0/")
 def loc0():
     appointment_location(0)
-    return render_template('appt_time.html', status_message="Chose 808", t0=times[0], t1=times[1], t2=times[2],
+    return render_template('appt_time.html', status_message="808 Commonwealth Ave.", t0=times[0], t1=times[1], t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
 
 @app.route("/loc1/")
 def loc1():
     appointment_location(1)
-    return render_template('appt_time.html', status_message="Chose 72 Concord St.", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message="72 Concord St.", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
