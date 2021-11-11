@@ -276,7 +276,7 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    appointment_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(time_choice + 1) + ']/td[1]/label'
+    appointment_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[' + str(time_choice + 1) + ']/td[1]/span/input'
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
 
