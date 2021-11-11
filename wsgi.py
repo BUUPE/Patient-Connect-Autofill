@@ -265,7 +265,6 @@ def appointment_location(location_choice):
 
     search_appointments = driver.find_element(By.XPATH, '//*[@id="apptSearch"]')
     search_appointments.click()
-    driver.get_screenshot_as_file("screenshot.png")
 
     for counter in range(1, 11):
         appointment_results_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr['+ str(counter) + ']/td[2]/label'
@@ -276,7 +275,8 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    appointment_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[' + str(time_choice + 1) + ']/td[1]/span/input'
+    appointment_xpath = "/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[" + str(time_choice + 1) + "  ]/td[1]/span/input"
+    driver.get_screenshot_as_file("screenshot.png")
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
 
