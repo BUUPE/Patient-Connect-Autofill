@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from time import sleep
 
 app = Flask(__name__, template_folder='templates')
 
@@ -43,7 +44,7 @@ def survey():
 def appointment():
     load_chrome_driver()
     appointment_checklist()
-    return render_template('appt_location.html', status_message="Choosing location...")
+    return render_template('appt_location.html', status_message="Choosing location...", status_message_2="")
 
 
 @app.route("/both/")
@@ -51,13 +52,15 @@ def both():
     load_chrome_driver()
     complete_survey()
     appointment_checklist()
-    return render_template('appt_location.html', status_message="Survey complete\n\nChoosing appointment location...")
+    return render_template('appt_location.html', status_message_1="Survey complete",
+                           status_message_2="Choosing appointment location...")
 
 
 @app.route("/loc0/")
 def loc0():
     appointment_location(0)
-    return render_template('appt_time.html', status_message="808 Commonwealth Ave. selected\n\nChoosing appointment time...", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message_1="808 Commonwealth Ave. selected",
+                           status_message_2="Choosing appointment time...", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
@@ -65,7 +68,8 @@ def loc0():
 @app.route("/loc1/")
 def loc1():
     appointment_location(1)
-    return render_template('appt_time.html', status_message="72 Concord St. selected\n\nChoosing appointment time...", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message_1="72 Concord St. selected",
+                           status_message_2="Choosing appointment time...", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
@@ -259,6 +263,7 @@ def appointment_checklist():
 
 # to select the location of the appointment
 def appointment_location(location_choice):
+    sleep(1)
     testing_location = Select(driver.find_element(By.ID, "LocationList"))
     testing_location.select_by_index(location_choice + 1)
 
@@ -274,6 +279,7 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
+    sleep(1)
     appointment_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(time_choice) + ']/td[2]/label'
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
