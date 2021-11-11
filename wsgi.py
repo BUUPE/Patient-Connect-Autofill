@@ -186,8 +186,7 @@ def complete_survey():
 
     driver.get('https://patientconnect.bu.edu/Mvc/Patients/QuarantineSurvey')
 
-    continue_1 = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[1]/div/div[2]/a')
-    continue_1.click()
+    driver.get('https://patientconnect.bu.edu/CheckIn/Survey/ShowAll/21')
 
     question_1 = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/main/form/div[2]/fieldset/div/div[1]/div')
     question_1.click()
