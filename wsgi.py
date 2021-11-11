@@ -263,7 +263,6 @@ def appointment_checklist():
 
 # to select the location of the appointment
 def appointment_location(location_choice):
-    sleep(1)
     testing_location = Select(driver.find_element(By.ID, "LocationList"))
     testing_location.select_by_index(location_choice + 1)
 
@@ -279,7 +278,7 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    sleep(1)
+    sleep(5)
     appointment_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(time_choice) + ']/td[2]/label'
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
