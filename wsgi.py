@@ -6,7 +6,6 @@ from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from time import sleep
 
 app = Flask(__name__, template_folder='templates')
 
@@ -260,7 +259,6 @@ def appointment_checklist():
 
 # to select the location of the appointment
 def appointment_location(location_choice):
-    sleep(1)
     testing_location = Select(driver.find_element(By.ID, "LocationList"))
     testing_location.select_by_index(location_choice + 1)
 
@@ -276,7 +274,6 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    sleep(5)
     appointment_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(time_choice + 1) + ']/td[2]/label'
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
