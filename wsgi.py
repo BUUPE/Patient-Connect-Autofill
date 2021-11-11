@@ -186,14 +186,6 @@ def complete_survey():
         log_into_patient_connect(bu_username, bu_password)
 
     driver.get('https://patientconnect.bu.edu/Mvc/Patients/QuarantineSurvey')
-    # try:
-    #     complete_survey_b = driver.find_element(By.XPATH, '//*[@id="ctl03"]/div[3]/div/a')
-    #     complete_survey_b.click()
-    #     print("try")
-    # except Exception:
-    #     complete_survey_b = driver.find_element(By.XPATH, '//*[@id="ctl03"]/div[4]/div/a')
-    #     complete_survey_b.click()
-    #     print("except")
 
     continue_1 = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[1]/div/div[2]/a')
     continue_1.click()
