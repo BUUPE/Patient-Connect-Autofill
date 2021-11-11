@@ -260,7 +260,7 @@ def appointment_checklist():
 
 # to select the location of the appointment
 def appointment_location(location_choice):
-    testing_location = Select(driver.find_element(By.XPATH, '//*[@id="LocationList"]'))
+    testing_location = Select(driver.find_element(By.ID, "LocationList"))
     testing_location.select_by_index(location_choice + 1)
 
     search_appointments = driver.find_element(By.XPATH, '//*[@id="apptSearch"]')
