@@ -51,13 +51,13 @@ def both():
     load_chrome_driver()
     complete_survey()
     appointment_checklist()
-    return render_template('appt_location.html', status_message="Survey complete. Choosing appointment location...")
+    return render_template('appt_location.html', status_message="Survey complete\n\nChoosing appointment location...")
 
 
 @app.route("/loc0/")
 def loc0():
     appointment_location(0)
-    return render_template('appt_time.html', status_message="808 Commonwealth Ave. selected. Choosing appointment time...", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message="808 Commonwealth Ave. selected\n\nChoosing appointment time...", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
@@ -65,7 +65,7 @@ def loc0():
 @app.route("/loc1/")
 def loc1():
     appointment_location(1)
-    return render_template('appt_time.html', status_message="72 Concord St. selected. Choosing appointment time...", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message="72 Concord St. selected\n\nChoosing appointment time...", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
@@ -266,8 +266,7 @@ def appointment_location(location_choice):
     search_appointments.click()
 
     for counter in range(1, 11):
-        appointment_results_xpath = '/html/body/div[4]/div/div[2]/form/div[2]/fieldset/table/tbody/tr[' \
-                                    + str(counter) + ']/td[2]/label'
+        appointment_results_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(counter) + ']/td[2]/label'
         times.append(driver.find_element(By.XPATH, appointment_results_xpath).text)
 
     return 0
