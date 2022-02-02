@@ -1,5 +1,6 @@
 # Created by Phil Ledoit
 
+from selenium.webdriver.common.service import Service
 from flask import *
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -57,7 +58,7 @@ def both():
 @app.route("/loc0/")
 def loc0():
     appointment_location(0)
-    return render_template('appt_time.html', status_message="Location: 808 Commonwealth Ave.", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message="808 Commonwealth Ave.", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
@@ -65,7 +66,7 @@ def loc0():
 @app.route("/loc1/")
 def loc1():
     appointment_location(1)
-    return render_template('appt_time.html', status_message="Location: 72 Concord St.", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message="72 Concord St.", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
