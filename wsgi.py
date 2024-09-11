@@ -1,12 +1,12 @@
 # Created by Phil Ledoit
 
+from selenium.webdriver.common.service import Service
 from flask import *
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from time import sleep
 
 app = Flask(__name__, template_folder='templates')
 
@@ -58,7 +58,7 @@ def both():
 @app.route("/loc0/")
 def loc0():
     appointment_location(0)
-    return render_template('appt_time.html', status_message="Location: 808 Commonwealth Ave.", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message="808 Commonwealth Ave.", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
@@ -66,7 +66,7 @@ def loc0():
 @app.route("/loc1/")
 def loc1():
     appointment_location(1)
-    return render_template('appt_time.html', status_message="Location: 72 Concord St.", t0=times[0], t1=times[1],
+    return render_template('appt_time.html', status_message="72 Concord St.", t0=times[0], t1=times[1],
                            t2=times[2],
                            t3=times[3], t4=times[4], t5=times[5], t6=times[6], t7=times[7], t8=times[8], t9=times[9])
 
@@ -260,7 +260,6 @@ def appointment_checklist():
 
 # to select the location of the appointment
 def appointment_location(location_choice):
-    sleep(1)
     testing_location = Select(driver.find_element(By.ID, "LocationList"))
     testing_location.select_by_index(location_choice + 1)
 
@@ -276,7 +275,6 @@ def appointment_location(location_choice):
 
 # to choose the date and time of the appointment
 def appointment_time(time_choice):
-    sleep(5)
     appointment_xpath = '//*[@id="apptContainer"]/fieldset/table/tbody/tr[' + str(time_choice + 1) + ']/td[2]/label'
     select_appointment = driver.find_element(By.XPATH, appointment_xpath)
     select_appointment.click()
